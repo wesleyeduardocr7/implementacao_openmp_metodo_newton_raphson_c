@@ -30,7 +30,19 @@ main(){
 	getch();
 }
 
-/*float f(float x){
+float f(float x) {
+   return pow(x,2)-5*x+6;
+}
+
+float df(float x) {
+   return 2*x-5;
+}
+
+
+//-------------------------------//
+
+/*
+float f(float x){
 	float func;
 	func = exp(x) - 3*x;
 	return(func);
@@ -42,12 +54,3 @@ float df(float x){
 	return(deriv);
 }*/
 
-//-------------------------------//
-
-float f(float x) {
-   return pow(x,2)-5*x+6;
-}
-
-float df(float x) {
-   return 2*x-5;
-}

@@ -4,7 +4,7 @@
 
 int main(){
 
-    #define nt 2
+    #define nt 4
 
 	int iter = 0;
 	float x0, xn, fxn, raiz;
@@ -21,19 +21,20 @@ int main(){
 
     double start = omp_get_wtime();
 
-     #pragma omp parallel num_threads(nt){
-         #pragma omp critical
-          while (f(xn) > eps) {
+     #pragma omp parallel num_threads(nt)
+     {
+     #pragma omp critical
+        while (f(xn) > eps) {
             iter++;
             xn = x0 - f(x0)/df(x0);
             fxn = fabs (f(xn));
             printf("Iteracao %d   |f(x)|: %10.6f\n", iter, fxn);
             x0 = xn;
-          }
+        }
     }
 
     double end = omp_get_wtime();
-    printf("\nTime = %f seconds\n\n",end - start);
+    printf("\nTime OpenMp = %f seconds\n\n",end - start);
 
 	raiz = xn;
     printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", iter, raiz);
@@ -47,3 +48,4 @@ float f(float x) {
 float df(float x) {
    return 2*x-5;
 }
+

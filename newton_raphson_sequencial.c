@@ -27,7 +27,7 @@ int main(){
     }
 
     double end = omp_get_wtime();
-    printf("\nTime = %f seconds\n\n",end - start);
+    printf("\nTime Sequencial = %f seconds\n\n",end - start);
 
 	raiz = xn;
     printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", iter, raiz);
