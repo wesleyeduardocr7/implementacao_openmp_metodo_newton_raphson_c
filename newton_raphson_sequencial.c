@@ -4,7 +4,7 @@
 
 int main(){
 
-	int iter = 0;
+	int i = 0;
 	float x0, xn, fxn, raiz;
 	float eps = 1.0E-6;
 	float f(float );
@@ -18,11 +18,10 @@ int main(){
 
     double start = omp_get_wtime();
 
-	while (f(xn) > eps) {
-		iter++;
+    for(i; f(xn) > eps; i++) {
 		xn = x0 - f(x0)/df(x0);
 		fxn = fabs (f(xn));
-		printf("Iteracao %d   |f(x)|: %10.6f\n", iter, fxn);
+		printf("Iteracao %d   |f(x)|: %10.6f\n", i, fxn);
 		x0 = xn;
     }
 
@@ -30,8 +29,8 @@ int main(){
     printf("\nTime Sequencial = %f seconds\n\n",end - start);
 
 	raiz = xn;
-    printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", iter, raiz);
-    printf("\n", iter, raiz);
+    printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", i, raiz);
+    printf("\n", i, raiz);
     printf("\n");
 }
 
