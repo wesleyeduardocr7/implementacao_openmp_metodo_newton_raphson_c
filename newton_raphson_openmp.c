@@ -4,9 +4,12 @@
 
 int main(){
 
-    #define nt 4
+    int sstop, tn;
+    int foo(int j);
+    omp_set_num_threads(4);
+    sstop = 0;
 
-	int i = 0;
+	int iter = 0;
 	float x0, xn, fxn, raiz;
 	float eps = 1.0E-6;
 	float f(float );
@@ -21,14 +24,24 @@ int main(){
 
     double start = omp_get_wtime();
 
-     #pragma omp parallel num_threads(nt)
+     #pragma omp parallel
      {
-     #pragma omp for
-        for(i; f(xn) > eps; i++) {
-            xn = x0 - f(x0)/df(x0);
-            fxn = fabs (f(xn));
-            printf("Iteracao %d   |f(x)|: %10.6f\n", i, fxn);
-            x0 = xn;
+        tn = omp_get_thread_num();
+        while (!sstop){
+
+          #pragma omp critical
+          {
+           iter++;
+           xn = x0 - f(x0)/df(x0);
+           fxn = fabs (f(xn));
+           printf("Thread = %d | Iteracao = %d  | f(x) = %10.6f\n", tn, iter, fxn);
+           x0 = xn;
+          }
+
+          if(f(xn) < eps){
+             sstop = 1;
+             #pragma omp flush(sstop)
+          }
         }
     }
 
@@ -36,8 +49,8 @@ int main(){
     printf("\nTime OpenMp = %f seconds\n\n",end - start);
 
 	raiz = xn;
-    printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", i, raiz);
-    printf("\n", i, raiz);
+    printf("Convergiu apos %4d iteracoes para a raiz = %10.6f", iter, raiz);
+    printf("\n", iter, raiz);
 }
 
 float f(float x) {
