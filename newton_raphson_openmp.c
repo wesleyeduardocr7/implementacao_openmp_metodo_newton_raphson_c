@@ -9,7 +9,7 @@ int main(){
     int sstop, tn;
     sstop = 0;
 
-	int iter = 0;
+	int iter;
 	float x0, xn, fxn, raiz;
 	float eps = 1.0E-6;
 	float f(float );
@@ -24,7 +24,7 @@ int main(){
 
     double start = omp_get_wtime();
 
-     #pragma omp parallel
+     #pragma omp parallel reduction(+: iter)
      {
         tn = omp_get_thread_num();
         while (!sstop){
