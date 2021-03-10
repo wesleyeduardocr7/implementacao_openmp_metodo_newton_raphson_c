@@ -4,9 +4,9 @@
 
 int main(){
 
-    int sstop, tn;
-    int foo(int j);
     omp_set_num_threads(4);
+
+    int sstop, tn;
     sstop = 0;
 
 	int iter = 0;
