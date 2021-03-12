@@ -24,7 +24,7 @@ int main(){
 
     double start = omp_get_wtime();
 
-     #pragma omp parallel reduction(+: iter)
+     #pragma omp parallel private(fxn) reduction(+: iter)
      {
         tn = omp_get_thread_num();
         while (!sstop){
@@ -42,6 +42,7 @@ int main(){
              sstop = 1;
              #pragma omp flush(sstop)
           }
+
         }
     }
 
